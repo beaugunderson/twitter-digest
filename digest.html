@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script>
+      window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+
+        return t;
+      }(document, "script", "twitter-wjs"));
+    </script>
+
+    <script>
+      twttr.ready(function () {
+        $.getJSON('tweets.json', function (tweets) {
+          tweets.forEach(function (tweet) {
+            twttr.widgets.createTweet(tweet, document.getElementById('container'));
+          });
+        });
+      });
+    </script>
+
+    <style type="text/css">
+      #container {
+        width: 500px;
+
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Twitter digest</h1>
+
+    <div id="container">
+
+    </div>
+  </body>
+</html>
